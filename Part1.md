@@ -61,7 +61,7 @@ You can also check the [PyTest documentation](https://docs.pytest.org/en/stable/
 - Each team member must submit a pull request (PR) to merge their feature branch into the main branch.
 - All push requests to the main branch must be reviewed by **at least one team member** before merging.
 - Each team member is responsible for making and/or reviewing at least one other member’s PR. This ensures that everyone is actively involved in the code review process.
-- Once the PR is reviewed and approved, it can be merged into the main branch.
+- Once the PR is reviewed and approved, it can be merged into the main branch
 
 ### **6. Report (10 points)**
 Write a markdown report (2-3 sentences) in the main branch outlining each team member’s contributions to the project. Be honest about the work completed and the role each person played in implementing features, filling in tests, and contributing to the collaboration process.
