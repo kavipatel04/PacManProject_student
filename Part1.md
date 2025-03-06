@@ -53,7 +53,7 @@ Instructions:
 ### **4. Write Tests (25 points)**
 Fill in tests for your code in the corresponding test file (e.g., test_player.py for player.py). Follow the example tests to model your tests.
 - Use the **pytest** framework for filling in tests.
-- If you find an error, make sure to create an issue on GitHub about it in the base repository. Every team must report at least 1 bug and provide a correct test case to show where the code fails.
+- If you find an error, make sure to create an issue on GitHub about it in the base repository
 
 You can also check the [PyTest documentation](https://docs.pytest.org/en/stable/) for more details if you are interested.
 
