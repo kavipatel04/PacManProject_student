@@ -60,10 +60,10 @@ class Player:
         # Draw mouth based on direction
         if self.direction == "right":
             start_angle = self.mouth_angle
-            #end_angle = 360 - self.mouth_angle
+            end_angle = 360 - self.mouth_angle
         elif self.direction == "left":
-            #start_angle = 180 + self.mouth_angle
-            #end_angle = 180 - self.mouth_angle
+            start_angle = 180 + self.mouth_angle
+            end_angle = 180 - self.mouth_angle
         elif self.direction == "up":
             start_angle = 270 + self.mouth_angle
             end_angle = 270 - self.mouth_angle
