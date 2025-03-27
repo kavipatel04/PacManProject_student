@@ -33,7 +33,7 @@ class Ghost:
         elif self.direction == "left":
             new_x -= self.speed
         elif self.direction == "up":
-            #new_y -= self.speed
+            new_y -= self.speed
         elif self.direction == "down":
             new_y += self.speed
 
@@ -51,8 +51,8 @@ class Ghost:
                 break
 
         if can_move:
-            #self.x = new_x
-            #self.y = new_y
+            self.x = new_x
+            self.y = new_y
 
         if self.scared:
             self.scared_timer -= 1
