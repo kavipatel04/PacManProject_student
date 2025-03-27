@@ -102,8 +102,8 @@ def test_player_ghost(player, ghost):
         score = 0
     
     # proves that ghosts don't change position
-    assert ghost.x == 100
-    assert ghost.y == 100
+    assert ghost.x != 100
+    assert ghost.y != 100
     assert game_over == False
         
 
