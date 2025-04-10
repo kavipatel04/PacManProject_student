@@ -1,92 +1,104 @@
 # Pac-Man Project - Part 2: Updates, Git Workflow, and Securing Sensitive Information
 
 ## **Overview**
-In Part 2 of the Pac-Man Project, you will work with your team to implement updates and enhancements to the Pac-Man game. This part focuses on:
-1. Updating code and assets (e.g., renaming elements, adding new features).
-2. Collaborating with your team using Git, including Git rebasing and handling branches.
-3. Securing sensitive information, such as private assets, and cleaning up the Git history to ensure no sensitive data is exposed.
+In Part 2 of the Pac-Man Project, you will collaborate with your team to implement updates and enhancements to the Pac-Man game. This phase focuses on:
+1. Renaming components and updating game assets.
+2. Securing sensitive information by removing it from Git history and preventing future exposure.
+3. Implementing a CI/CD pipeline to automate testing using GitHub Actions.
+4. Conducting pull requests and performing code reviews.
 
 ---
 
 ## **Objectives**
 1. **Rename components and implement updates**
-2. **Rebase your branches**
-3. **Sensitive Information Handling**
-4. **Write a working CI/CD pipeline to automate testing**
-5. **Pull requests and code reviews** 
+2. **Secure sensitive information**
+3. **Implement a CI/CD pipeline for automated testing**
+4. **Conduct pull requests and perform code reviews**
 
 ---
 
 ## **Steps for Part 2**
 
-### **1. Update and Rename Components - 20 points**
+### **1. Rename Components and Implement Updates - 20 points**
 Uh oh, we forgot that player should actually be named Pacman. Rename all appropriate files, branches, code, and dependencies to reflect this name change. Ensure you maintain a clean Git history in this process.
 
-### **2. Rebase your branches - 30 points**
-In the past week we've found numerous bugs (thanks to your help!) from the original codebase and squashed them. Rebase your repository so that your game is also (mostly) bug free! **Hint**: This is why it was important to set the base repository as the upstream remote. Ensure you maintain a clean Git history in this process.
+*Hint: Using `grep` and `sed` can help streamline this process.*
 
-### **3. Sensitive Information Handling - 40 points**
-Uh oh! We've accidentally included a .env file containing sensitive information about PacMan that in the repositories. To make sure that evil Ghosts online can't learn this sensitive information you must modify your repository to ensure that the .env file is no longer tracked by Git. Additionally, you need to clean up your Git history so Ghosts online can't go to a previous commit and find the .env file. 
+In your report, describe the method you used for renaming, and if you employed a command-based approach, include the commands you used
 
-### **4. GitHub Actions Workflow - 25 points**
-The project uses GitHub Actions for continuous integration. You will make a CI file `.github/workflows/ci.yml`, and you need to fill it in to make it functional. 
+---
 
-Your Goals:
-1. **Triggering Events**
-    * The workflow should run in response to the following events:
-        * **Push**: When code is pushed to the main branch.
-        * **Pull Request**: When a pull request is opened that targets the main branch.
-2. **Job Setup**
-    * The job should run on an `ubuntu-latest` runner.
-    * Run the job for Python 3.10
+### **2. Secure Sensitive Information - 40 points**
+A `.env` file containing sensitive information was mistakenly committed to the repository. To ensure security:
+- Stop tracking the `.env` file in Git.
+- Remove any sensitive data from the Git history to prevent access via past commits.
 
-3. **Steps**
-    1. Checkout the Code
-        * Use the `actions/checkout` action to check out the repository's code.
+*Hint: Use `.gitignore` to exclude `.env` from future commits and `git filter-branch` or `git rebase` to clean up the repository history.*
 
-    2. Setup Python Environment
-        * Use the `actions/setup-python` action to set up the Python version
-    3. Install System Dependencies
-        * Install the following system dependencies:
-            1. **python3-pygame**: A library used for game development in Python.
-            2. **xvfb**: A virtual framebuffer required for running tests in a headless environment.
-        ```bash
-        sudo apt-get update
-        sudo apt-get install -y python3-pygame
-        sudo apt-get install -y xvfb
-        ```
-    4. Install Python Dependencies
-        ```bash
-        python -m pip install --upgrade pip
-        pip install pytest
-        pip install pytest-cov
-        pip install flake8
-        pip install black
-        pip install pygame
-        ```
-    5. Check Code Formatting with Black
-        * If the code is not properly formatted, it should fail the CI run and display the differences
-        ```bash
-        black --check --diff .
-        ```
-    6. Lint the Code with Flake8
-        * Run flake8 to check for Python syntax errors and undefined names. Ensure the build fails if any critical issues are found. Additionally, run flake8 again with more lenient rules to check for complexity, line length, and general style.
-        ```bash
-        # stop the build if there are Python syntax errors or undefined names
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero treats all errors as warnings
-        flake8 . --count --exit-zero --max-complexity=30 --max-line-length=100 --statistics
-        ```
-    7. Run tests with pytest
-        * Use pytest to run the tests and generate a coverage report in XML format. Since the project involves graphical elements, use xvfb-run to run the tests in a virtual framebuffer, ensuring the tests can be executed in a headless environment.
-        ```bash
-        xvfb-run -a pytest --cov=./ --cov-report=xml
-        ```
+---
 
-    **Notes**
-    * The commands for installing dependencies and running tests are provided, but your focus is on writing the correct workflow structure in the YML file.
-    * Make sure the pipeline runs in the right order and follows best practices for CI configuration.
+### **3. Implement a GitHub Actions CI/CD Pipeline - 25 points**
+Create a CI workflow in `.github/workflows/ci.yml` that performs the following actions:
 
+#### **Triggering Events**
+- Run the workflow on:
+  - **Pushes** to the `main` branch.
+  - **Pull requests** targeting the `main` branch.
 
-### 5. **Pull requests and code reviews - 10 points**: 
-If needed, make sure you make pull requests and conduct code reviews for this project.
+#### **Job Setup**
+- Use `ubuntu-latest` as the runner.
+- Configure the job for Python 3.10.
+
+#### **Steps**
+1. **Checkout the Code**
+   - Use `actions/checkout` to retrieve the repository’s contents.
+
+2. **Setup Python Environment**
+   - Use `actions/setup-python` to install Python 3.10.
+
+3. **Install System Dependencies**
+   ```bash
+   sudo apt-get update
+   sudo apt-get install -y python3-pygame xvfb
+   ```
+
+4. **Install Python Dependencies**
+   ```bash
+   python -m pip install --upgrade pip
+   pip install pytest pytest-cov flake8 black pygame
+   ```
+
+5. **Check Code Formatting with Black**
+   ```bash
+   black --check --diff .
+   ```
+
+6. **Lint Code with Flake8**
+   ```bash
+   flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+   flake8 . --count --exit-zero --max-complexity=30 --max-line-length=100 --statistics
+   ```
+
+7. **Run Tests with Pytest**
+   ```bash
+   xvfb-run -a pytest --cov=./ --cov-report=xml
+   ```
+
+*Note: Ensure the pipeline executes in the correct order and follows best CI/CD practices.*
+
+---
+
+### **4. Conduct Pull Requests and Perform Code Reviews - 10 points**
+Ensure proper collaboration by:
+- Submitting pull requests for changes if needed.
+- Reviewing and approving team members' code updates before merging if needed.
+- Providing constructive feedback on improvements and code quality if needed.
+
+---
+
+### **5. Report - 10 points**
+Write a markdown report (2-3 sentences) in the main branch outlining each team member’s contributions to the project. Be honest about the work completed and the role each person played.
+
+**Note**: If you feel that a team member misrepresented their contributions, make a private Piazza post to address the issue. We will verify reports to ensure fairness. Regardless, we will be checking to see if what the report says aligns with what each person did
+
+---
