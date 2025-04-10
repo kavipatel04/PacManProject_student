@@ -3,3 +3,7 @@ Ben - Worked on Feature/item, reviewed merges
 John - Worked on Feature/ghost, reviewed merges
 Mariia - Worked on Feature/gameboard, reviewed merges
 Aarav - Worked on test_player, reviewed marges
+
+
+Part 2
+John - Created a new branch, set gitignore to ignore .env file, and created a pull request. Approved pull requests. Created a new branch for members to update the report file.
