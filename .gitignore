@@ -4,11 +4,11 @@ __pycache__/
 
 # Logs
 *.log
+*.vscode
 
 # Virtual Environment
 venv/
 
-.github/workflows/ci.yml
 
 test_ghost.py
 test_items.py
