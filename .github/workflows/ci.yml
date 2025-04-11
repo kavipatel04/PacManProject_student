@@ -32,3 +32,15 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y python3-pygame xvfb
+
+      - name: Check Code Formatting with Black
+        run: black --check --diff .
+
+      - name: Lint Code with Flake8 (Strict)
+        run: flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+
+      - name: Lint Code with Flake8 (Full Report)
+        run: flake8 . --count --exit-zero --max-complexity=30 --max-line-length=100 --statistics
+
+      - name: Run Tests with Pytest
+        run: xvfb-run -a pytest --cov=./ --cov-report=xml
