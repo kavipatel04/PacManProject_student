@@ -6,6 +6,7 @@ from ghost import Ghost
 WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 600
 
+
 @pytest.fixture
 def pacman():
     return Pacman(100, 100)
@@ -19,9 +20,11 @@ def walls():
         pygame.Rect(780, 0, 20, 600),  # Right wall
     ]
 
+
 @pytest.fixture
 def ghost():
     return Ghost(100, 100, color="Red")
+
 
 def test_pacman_initialization(pacman):
     assert pacman.x == 100
@@ -59,25 +62,27 @@ def test_pacman_wall_collision(pacman, walls):
     pacman.move("right", walls)
     assert pacman.x == 190  # Should not move through obstacle
 
+
 def test_pacman_movement_with_obstacles(pacman, walls):
     # Step 1: Move pacman towards an obstacle (left wall)
     pacman.x = 25
     pacman.y = 100
     pacman.move("left", walls)
-    assert pacman.x == 25 # Should not move through the left wall
+    assert pacman.x == 25  # Should not move through the left wall
 
     # Step 2: Move pacman towards an obstacle (small obstacle at (200, 200))
     pacman.x = 190
     pacman.y = 210
     pacman.move("right", walls)
-    assert pacman.x == 190# Should not move through the small obstacle
+    assert pacman.x == 190  # Should not move through the small obstacle
 
     # Step 3: Move pacman towards the right wall (new right wall at x=780)
     pacman.x = 780
     pacman.y = 100
     pacman.move("right", walls)
     # Assert that the pacman's position hasn't changed, as they can't move past the wall
-    assert pacman.x ==  780# Should not move beyond the right wall
+    assert pacman.x == 780  # Should not move beyond the right wall
+
 
 def test_pacman_ghost(pacman, ghost):
     ghost.x = 100
@@ -90,7 +95,7 @@ def test_pacman_ghost(pacman, ghost):
 
     if abs(ghost.x - pacman.x) < 20 and abs(ghost.y - pacman.y) < 20:
         game_over = True
-    
+
     assert game_over == True
 
     if game_over:
@@ -100,11 +105,8 @@ def test_pacman_ghost(pacman, ghost):
         pacman.y = WINDOW_HEIGHT // 2
         ghost.scared = False
         score = 0
-    
+
     # proves that ghosts don't change position
-    assert ghost.x != 100
-    assert ghost.y != 100
+    assert ghost.x == 100
+    assert ghost.y == 100
     assert game_over == False
-        
-
-
