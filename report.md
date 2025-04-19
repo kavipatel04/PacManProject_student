@@ -22,3 +22,5 @@ Aarav Naveen - completed part 1 of the project, and replaced all mentions of pla
 Kavi - Created a branch to set up the CICD pipeline. The process required multiple commits, as the only way to test the program was to push and view how the action performed. The set up only includes the environment and setting up depedencies - not the actual tests themselves.
 
 Ben- Removed .env from all previous commits via filter-branch. Approved and merged others PRs.
+
+Mariia - Worked to enrich the CI/CD document by completing the flows.
